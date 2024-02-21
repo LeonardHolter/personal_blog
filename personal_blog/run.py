@@ -3,31 +3,42 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 
-#Initialising Flask, and the SQLAlchemy data base
+#################################################################################################################
+
+
 app = Flask("__main__")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
 db = SQLAlchemy(app)
 
 
+#################################################################################################################
 
-#Making the structure of the database
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
 
+
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
 
 
-
+#################################################################################################################
 
 @app.route("/")
 @app.route("/home")
 def home():
     posts = Post.query.all()
     return render_template("home.html", posts = posts)
+
+@app.route("/blog")
+def blog():
+    posts = Post.query.all()
+    return render_template("blog.html", posts = posts)
+
+
 
 @app.route("/post/<int:post_id>")
 def post(post_id):
@@ -46,6 +57,8 @@ def create():
         return redirect(url_for('home'))
     return render_template("create.html")
 
+
+#################################################################################################################
 
 
 

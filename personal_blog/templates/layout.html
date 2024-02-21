@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='layout.css') }}">
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <a href={{url_for('blog')}}>
+                <li> Blog </li>
+            </a>
+            <a href={{url_for('blog')}}>
+                <li> Reviews </li>
+            </a>
+            <a href={{url_for('blog')}}>
+                <li> Bio </li>
+            </a>
+            <a href={{url_for('blog')}}>
+                <li> Quotes </li>
+            </a>
+            <a href={{url_for('blog')}}>
+                <li> My Book </li>
+            </a>
+            <a href="https://twitter.com/Holter0517">
+                <li> X </li>
+            </a>
+            <a href="https://twitter.com/Holter0517">
+                <li> Email </li>
+            </a>
+        </ul>
+    </nav>
+
+
+
+    {% block content %}{% endblock %}
+</body>
+
+</html>
