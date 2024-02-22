@@ -8,6 +8,12 @@ nav ul {
 
     display: flex;
     flex-direction: column;
+
+    position: absolute;
+    left: 10px;
+    top: 10px;
+
+    padding-inline-start: 0px;
 }
 
 nav ul a li {
@@ -28,4 +34,8 @@ nav ul a li {
 
 nav ul a {
     text-decoration: none;
+}
+
+nav ul a li:hover {
+    scale: 1.2;
 }

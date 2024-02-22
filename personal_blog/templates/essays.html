@@ -1,0 +1,30 @@
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="{{ url_for('static', filename='essays.css') }}"
+/>
+
+{% extends "layout.html" %} {% block content %}
+
+<div class="essays-section">
+    <h3 class="essays-title">Essays</h3>
+    <p>
+        I'll publish one essay each and every sunday. If you're not sure where
+        to start, try
+        <a href="{{url_for('essay', essay_id = newest_essay.id)}}">
+            {{newest_essay.title}}</a
+        >
+    </p>
+    <div class="essays-menu">
+        <ul>
+            {% for essay in essays|reverse %}
+            <li>
+                <a href="{{ url_for('essay', essay_id = essay.id) }}">
+                    {{essay.title }}</a
+                >
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock content %}

@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 #################################################################################################################
 
 
-class Post(db.Model):
+class Essay(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -30,28 +30,25 @@ class Post(db.Model):
 @app.route("/")
 @app.route("/home")
 def home():
-    posts = Post.query.all()
-    return render_template("home.html", posts = posts)
+    return render_template("home.html")
 
-@app.route("/blog")
-def blog():
-    posts = Post.query.all()
-    return render_template("blog.html", posts = posts)
+@app.route("/essays")
+def essays():
+    essays = Essay.query.all()
+    newest_essay =  Essay.query.order_by(Essay.date_posted.desc()).first()
+    return render_template("essays.html", essays = essays, newest_essay = newest_essay)
 
-
-
-@app.route("/post/<int:post_id>")
-def post(post_id):
-    post = Post.query.get_or_404(post_id)
-    return render_template("post.html", post=post)
-
+@app.route("/essay/<int:essay_id>")
+def essay(essay_id):
+    essay = Essay.query.get_or_404(essay_id)
+    return render_template("essay.html", essay=essay)
 
 @app.route("/create", methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
-        new_post = Post(title=title, content=content)
+        new_post = Essay(title=title, content=content)
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for('home'))
